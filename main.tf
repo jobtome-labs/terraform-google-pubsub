@@ -64,6 +64,14 @@ resource "google_pubsub_subscription" "subscription" {
 
     content {
       push_endpoint = push_config.value
+
+      dynamic "oidc_token" {
+        for_each = compact([try(local.all_subscriptions[count.index].oidc_token_service_account_email)])
+
+        content {
+          service_account_email = oidc_token.value
+        }
+      }
     }
   }
 
