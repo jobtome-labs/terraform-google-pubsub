@@ -101,3 +101,10 @@ variable "retry_policy" {
 
   default = null
 }
+
+variable "oidc_token_service_account_email" {
+  type        = string
+  description = "(Optional) Service Account Email to be used for generating the OIDC Token."
+
+  default = null
+}

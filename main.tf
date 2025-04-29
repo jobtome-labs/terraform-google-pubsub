@@ -6,14 +6,15 @@ locals {
   all_subscriptions = concat(
     [
       {
-        "name"                       = coalesce(var.name_subscription, var.name)
-        "roles"                      = var.roles_subscription
-        "message_retention_duration" = var.message_retention_duration
-        "ack_deadline_seconds"       = var.ack_deadline_seconds
-        "retain_acked_messages"      = var.retain_acked_messages
-        "ttl_list"                   = [var.ttl]
-        "push_list"                  = var.push != "" ? [var.push] : []
-        "dead_letter_list"           = length(var.dead_letter) != 0 ? [var.dead_letter] : []
+        "name"                             = coalesce(var.name_subscription, var.name)
+        "roles"                            = var.roles_subscription
+        "message_retention_duration"       = var.message_retention_duration
+        "ack_deadline_seconds"             = var.ack_deadline_seconds
+        "retain_acked_messages"            = var.retain_acked_messages
+        "ttl_list"                         = [var.ttl]
+        "push_list"                        = var.push != "" ? [var.push] : []
+        "dead_letter_list"                 = length(var.dead_letter) != 0 ? [var.dead_letter] : []
+        "oidc_token_service_account_email" = var.oidc_token_service_account_email
       }
     ],
     var.extra_subscriptions
