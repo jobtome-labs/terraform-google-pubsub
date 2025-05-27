@@ -15,6 +15,7 @@ locals {
         "push_list"                        = var.push != "" ? [var.push] : []
         "dead_letter_list"                 = length(var.dead_letter) != 0 ? [var.dead_letter] : []
         "oidc_token_service_account_email" = var.oidc_token_service_account_email
+        "filter"                           = var.filter
       }
     ],
     var.extra_subscriptions
@@ -42,6 +43,7 @@ resource "google_pubsub_subscription" "subscription" {
   message_retention_duration = try(local.all_subscriptions[count.index].message_retention_duration, var.message_retention_duration)
   ack_deadline_seconds       = try(local.all_subscriptions[count.index].ack_deadline_seconds, var.ack_deadline_seconds)
   retain_acked_messages      = try(local.all_subscriptions[count.index].retain_acked_messages, var.retain_acked_messages)
+  filter                     = try(local.all_subscriptions[count.index].filter, var.filter)
 
   dynamic "expiration_policy" {
     for_each = try(local.all_subscriptions[count.index].ttl_list, [var.ttl])
