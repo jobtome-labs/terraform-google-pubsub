@@ -108,3 +108,10 @@ variable "oidc_token_service_account_email" {
 
   default = null
 }
+
+variable "filter" {
+  type        = string
+  description = "(Optional) Filter to be applied to the subscription, based on message metadata attributes."
+
+  default = null
+}
